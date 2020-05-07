@@ -1,5 +1,7 @@
+#bug fixed by @d3athwarrior
+
 """@RollADie
-Syntax: .dice"""
+Syntax: .dice or .dice 1 to 6 any value """
 from telethon.tl.types import InputMediaDice
 from uniborg.util import admin_cmd
 
@@ -10,12 +12,12 @@ async def _(event):
         return
     input_str = event.pattern_match.group(1)
     await event.delete()
-    r = await event.reply(file=InputMediaDice())
+    r = await event.reply(file=InputMediaDice(''))
     if input_str:
         try:
             required_number = int(input_str)
             while not r.media.value == required_number:
                 await r.delete()
-                r = await event.reply(file=InputMediaDice())
+                r = await event.reply(file=InputMediaDice(''))
         except:
             pass
