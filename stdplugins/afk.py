@@ -1,4 +1,5 @@
 # Credits to https://t.me/anubisxx for this plugin
+# Offline / Online credits to https://t.me/DevP73
 
 
 """AFK Plugin for @UniBorg
@@ -6,6 +7,7 @@ Syntax: .afkb REASON"""
 import asyncio
 from asyncio import sleep
 import datetime
+from datetime import datetime
 import shutil 
 import random, re
 from random import choice, randint
@@ -15,6 +17,8 @@ from datetime import timedelta
 from datetime import datetime
 from telethon import events
 from telethon.tl import functions, types
+from telethon.events import StopPropagation
+from telethon.tl.functions.account import UpdateProfileRequest
 from uniborg.util import progress, is_read, humanbytes, time_formatter, admin_cmd
 from sample_config import Config
 from platform import python_version, uname
@@ -73,6 +77,7 @@ async def _(event):
     global afkb_start
     global afkb_end
     global reason
+    user = await borg.get_me()
     USER_AFKB = {}
     afkb_time = None
     last_afkb_message = {}
@@ -93,6 +98,10 @@ async def _(event):
             await borg.send_message(event.chat_id, f"**My King 👑 {DEFAULTUSER} 👑 is Going afk!** __because My Master is {reason}__")
         else:
             await borg.send_message(event.chat_id, f"**My King 👑 {DEFAULTUSER} 👑 is Going afk!** __because My Master is {AFKSK}__")
+    if user.last_name:
+        await event.client(UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ OFFLINE ]"))
+    else:
+        await event.client(UpdateProfileRequest(first_name=user.first_name, last_name=" [ OFFLINE ]"))
         await asyncio.sleep(5)
         await event.delete()
         try:
@@ -111,12 +120,19 @@ async def set_not_afkb(event):
     global last_afkb_message  # pylint:disable=E0602
     global afkb_start
     global afkb_end
+    user = await borg.get_me()
+    last = user.last_name
+    if last and last.endswith(" [ OFFLINE ]"):
+        last1 = last[:-12]
+    else:
+        last1 = ""
     back_alive = datetime.now()
     afkb_end = back_alive.replace(microsecond=0)
     total_afkb_time = str(afkb_end - afkb_start)
     current_message = event.message.message
     if ".afkb" not in current_message and "yes" in USER_AFKB:  # pylint:disable=E0602
         shite = await borg.send_message(event.chat_id, "__My Master is Back!__\n**He is No Longer afk.**\n `Was afk for:``" + total_afkb_time + "`")
+        await event.client(UpdateProfileRequest(first_name=user.first_name, last_name=last1))
         try:
             await borg.send_message(  # pylint:disable=E0602
                 Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
