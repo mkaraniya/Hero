@@ -7,7 +7,6 @@ zalgo_text
 pyfiglet
 lxml
 selenium>=4.0.0a5
-aria2p 
 chatterbot
 chatterbot_corpus>=1.2.0
 -r ./requirements-stdborg.txt
