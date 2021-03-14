@@ -31,7 +31,6 @@ sqlalchemy>=1.3.13
 telegraph
 urbandict
 wikipedia
-youtube-dl
 lxml
 heroku3 
 git+https://github.com/LonamiWebs/Telethon
