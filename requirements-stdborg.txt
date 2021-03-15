@@ -51,7 +51,7 @@ apscheduler
 lyricsgenius
 jotquote
 csvfaker
-pytube3
+# pytube3
 gitpython
 search-engine-parser>=0.4.2
 wget
