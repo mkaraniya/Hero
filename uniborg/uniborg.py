@@ -7,11 +7,11 @@ import logging
 from pathlib import Path
 from pymongo import MongoClient
 
-from youtube_dl import YoutubeDL
-from youtube_dl.utils import (DownloadError, ContentTooShortError,
-                              ExtractorError, GeoRestrictedError,
-                              MaxDownloadsReached, PostProcessingError,
-                              UnavailableVideoError, XAttrMetadataError)
+#from youtube_dl import YoutubeDL
+#from youtube_dl.utils import (DownloadError, ContentTooShortError,
+ #                             ExtractorError, GeoRestrictedError,
+  #                            MaxDownloadsReached, PostProcessingError,
+   #                           UnavailableVideoError, XAttrMetadataError)
 from googleapiclient.discovery import build
 # from youtube_dl import YOUTUBE_API_KEY
 
