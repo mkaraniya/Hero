@@ -97,7 +97,7 @@ async def _(event):
         if reason:
             await borg.send_message(event.chat_id, f"**My King 👑 {DEFAULTUSER} 👑 is Going afk!** __because My Master is {reason}__")
         else:
-            await borg.send_message(event.chat_id, f"**My King 👑 {DEFAULTUSER} 👑 is Going afk!** __because My Master is {AFKSK}__")
+            await borg.send_message(event.chat_id, f"**My King 👑 {DEFAULTUSER} 👑 is Going afk!** __cause {AFKSK}__")
     if user.last_name:
         await event.client(UpdateProfileRequest(first_name=user.first_name, last_name=user.last_name + " [ OFFLINE ]"))
     else:
@@ -131,7 +131,7 @@ async def set_not_afkb(event):
     total_afkb_time = str(afkb_end - afkb_start)
     current_message = event.message.message
     if ".afkb" not in current_message and "yes" in USER_AFKB:  # pylint:disable=E0602
-        shite = await borg.send_message(event.chat_id, "__My Master is Back!__\n**He is No Longer afk.**\n `Was afk for:``" + total_afkb_time + "`")
+        shite = await borg.send_message(event.chat_id, "__My Master is Back!__\n**He is No Longer afk my Friend.**\n `He is back after:``" + total_afkb_time + "`")
         await event.client(UpdateProfileRequest(first_name=user.first_name, last_name=last1))
         try:
             await borg.send_message(  # pylint:disable=E0602
