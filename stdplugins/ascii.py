@@ -39,7 +39,7 @@ async def ascii(event):
         return
     await event.edit("`Downloading Media..`")
     if reply_message.photo:
-        IMG = await borg.download_media(
+        IMG = await bot.download_media(
             reply_message,
             "ascii.png",
         )
@@ -47,14 +47,14 @@ async def ascii(event):
         DocumentAttributeFilename(file_name="AnimatedSticker.tgs")
         in reply_message.media.document.attributes
     ):
-        await borg.download_media(
+        await bot.download_media(
             reply_message,
             "ASCII.tgs",
         )
         os.system("lottie_convert.py ASCII.tgs ascii.png")
         IMG = "ascii.png"
     elif reply_message.video:
-        video = await borg.download_media(
+        video = await bot.download_media(
             reply_message,
             "ascii.mp4",
         )
@@ -62,7 +62,7 @@ async def ascii(event):
         os.system("ffmpeg -i ascii.mp4 -vframes 1 -an -s 480x360 -ss 1 ascii.png")
         IMG = "ascii.png"
     else:
-        IMG = await borg.download_media(
+        IMG = await bot.download_media(
             reply_message,
             "ascii.png",
         )
