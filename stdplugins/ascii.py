@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.types import DocumentAttributeFilename
 from uniborg.util import admin_cmd
 import asyncio
-# import traceback
+import traceback
 
 
 bground = "black"
