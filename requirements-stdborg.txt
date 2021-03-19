@@ -60,3 +60,4 @@ pymongo[srv]
 telethon-session-sqlalchemy>=0.2.6
 TgCrypto>=1.2.0
 covid
+color
