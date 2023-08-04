@@ -3,7 +3,7 @@
 # Create a new config.py file in same dir and import, then extend this class.
 import os
 from telethon.tl.types import ChatBannedRights
-from pymongo import MongoClient
+# from pymongo import MongoClient
 from redis import StrictRedis
 
 class Config(object):
@@ -111,7 +111,7 @@ class Config(object):
     # For Databases
     # can be None in which case plugins requiring
     # DataBase would not work
-    MONGO_URI = os.environ.get("MONGO_URI", None)
+   # MONGO_URI = os.environ.get("MONGO_URI", None)
     # number of rows of buttons to be displayed in .helpme command
     NO_OF_BUTTONS_DISPLAYED_IN_H_ME_CMD = int(os.environ.get("NO_OF_BUTTONS_DISPLAYED_IN_H_ME_CMD", 5))
     # specify command handler that should be used for the plugins
@@ -178,16 +178,16 @@ class Config(object):
     BOT_HUB = os.environ.get("BOT_HUB", None)
     #
     # Init Mongo
-MONGOCLIENT = MongoClient(Config.MONGO_URI, 27017, serverSelectionTimeoutMS=1)
-MONGO = MONGOCLIENT.userbot
+# MONGOCLIENT = MongoClient(Config.MONGO_URI, 27017, serverSelectionTimeoutMS=1)
+# MONGO = MONGOCLIENT.userbot
 
 
-def is_mongo_alive():
-    try:
-        MONGOCLIENT.server_info()
-    except BaseException:
-        return False
-    return True
+# def is_mongo_alive():
+  #  try:
+   #     MONGOCLIENT.server_info()
+   # except BaseException:
+    #    return False
+   # return True
 
 
 # Init Redis

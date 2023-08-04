@@ -25,7 +25,7 @@ from uniborg.util import admin_cmd
 import asyncio
 import shutil 
 import random, re
-from sample_config import Config
+from config import Config
 from platform import python_version, uname
 
 

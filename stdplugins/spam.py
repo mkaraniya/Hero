@@ -26,7 +26,7 @@ Copyright (C) 2019 The Raphielscape Company LLC.
 import asyncio
 from asyncio import wait, sleep
 
-from sample_config import Config
+from config import Config
 from uniborg.util import admin_cmd
 import uniborg
 import os

@@ -21,7 +21,7 @@ import time
 from datetime import datetime
 from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
-from sample_config import Config
+from config import Config
 from uniborg.util import admin_cmd, humanbytes, progress, time_formatter
 
 import asyncio
@@ -35,7 +35,7 @@ import sys
 import json
 from uniborg.util import progress, is_read, humanbytes, time_formatter, admin_cmd
 from platform import python_version, uname
-from sample_config import Config
+from config import Config
 
 # ================= CONSTANT =================
 DEFAULTUSER = Config.ALIVE_NAME if Config.ALIVE_NAME else uname().node

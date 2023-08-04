@@ -1,174 +1,221 @@
-"""Update UserBot code
-Syntax: .update"""
+# TG-UserBot - A modular Telegram UserBot script for Python.
+# Copyright (C) 2019  Kandarp <https://github.com/kandnub>
+#
+# TG-UserBot is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# TG-UserBot is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with TG-UserBot.  If not, see <https://www.gnu.org/licenses/>.
 
-from os import remove
-from os import execl
+import asyncio
+import datetime
+import os.path
 import sys
-
-# from git import Repo
-# from git.exc import GitCommandError
-# from git.exc import InvalidGitRepositoryError
-# from git.exc import NoSuchPathError
-
-# from .. import bot
-# from uniborg.events import register
 
 import git
-import asyncio
-import random
-import re
-import time
+import heroku3
 
-from collections import deque
+from userbot import client, LOGGER
+from userbot.utils.helpers import restart, _humanfriendly_seconds
+from userbot.utils.events import NewMessage
 
-import requests
-
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import MessageEntityMentionName
-from telethon import events
-
-from uniborg.util import admin_cmd
+basedir = os.path.abspath(os.path.curdir)
+author_link = "[{author}]({url}commits?author={author})"
+summary = "\n[{rev}]({url}commit/{sha}) `{summary}`\n"
+commited = "{committer}` committed {elapsed} ago`\n"
+authored = "{author}` authored and `{committer}` committed {elapsed} ago`\n"
+main_repo = "https://github.com/mkaraniya/BotHub.git"
 
 
-from contextlib import suppress
-import os
-import sys
-import asyncio
-
-# -- Constants -- #
-IS_SELECTED_DIFFERENT_BRANCH = (
-    "looks like a custom branch {branch_name} "
-    "is being used:\n"
-    "in this case, Updater is unable to identify the branch to be updated."
-    "please check out to an official branch, and re-start the updater."
-)
-OFFICIAL_UPSTREAM_REPO = "https://github.com/mkaraniya/BotHub/"
-BOT_IS_UP_TO_DATE = "the userbot is up-to-date."
-NEW_BOT_UP_DATE_FOUND = (
-    "new update found for {branch_name}\n"
-    "changelog: \n\n{changelog}\n"
-    "updating ..."
-)
-NEW_UP_DATE_FOUND = (
-    "new update found for {branch_name}\n"
-    "updating ..."
-)
-# REPO_REMOTE_NAME = "your_github_repo_name"
-REPO_REMOTE_NAME = "BotHub"
-IFFUCI_ACTIVE_BRANCH_NAME = "master"
-DIFF_MARKER = "HEAD..{remote_name}/{branch_name}"
-NO_HEROKU_APP_CFGD = "no heroku application found, but a key given? 😕 "
-HEROKU_GIT_REF_SPEC = "HEAD:refs/heads/master"
-RESTARTING_APP = "re-starting heroku application"
-# -- Constants End -- #
-
-
-@borg.on(admin_cmd("update ?(.*)", outgoing=True))
-async def updater(message):
+@client.onMessage(command="botupdate",
+                  outgoing=True,
+                  regex="botupdate(?: |$)(reset|add)?$",
+                  builtin=True)
+async def updater(event: NewMessage.Event) -> None:
+    """Pull newest changes from the official repo and update the script/app."""
+    arg = event.matches[0].group(1)
+    await event.answer("`Checking for updates!`")
     try:
-        repo = git.Repo()
-    except git.exc.InvalidGitRepositoryError as e:
-        repo = git.Repo.init()
-        origin = repo.create_remote(REPO_REMOTE_NAME, OFFICIAL_UPSTREAM_REPO)
-        origin.fetch()
-        repo.create_head(IFFUCI_ACTIVE_BRANCH_NAME, origin.refs.master)
-        repo.heads.master.checkout(True)
-
-    active_branch_name = repo.active_branch.name
-    if active_branch_name != IFFUCI_ACTIVE_BRANCH_NAME:
-        await message.edit(IS_SELECTED_DIFFERENT_BRANCH.format(
-            branch_name=active_branch_name
-        ))
-        return False
-
-    try:
-        repo.create_remote(REPO_REMOTE_NAME, OFFICIAL_UPSTREAM_REPO)
-    except Exception as e:
-        print(e)
-        pass
-
-    temp_upstream_remote = repo.remote(REPO_REMOTE_NAME)
-    temp_upstream_remote.fetch(active_branch_name)
-
-    changelog = generate_change_log(repo, DIFF_MARKER.format
-                                    (
-            remote_name=REPO_REMOTE_NAME,
-            branch_name=active_branch_name
-        )
-    )
-
-    if not changelog:
-        await message.edit("Updating...")
-        await asyncio.sleep(8)
- 
-    message_one = NEW_BOT_UP_DATE_FOUND.format(
-        branch_name=active_branch_name,
-        changelog=changelog
-    )
-    message_two = NEW_UP_DATE_FOUND.format(
-        branch_name=active_branch_name
-    )
-
-    if len(message_one) > 4095:
-        with open("change.log", "w+", encoding="utf8") as out_file:
-            out_file.write(str(message_one))
-        await bot.send_message(
-            message.chat_id,
-            document="change.log",
-            caption=message_two
-        )
-        os.remove("change.log")
-    else:
-        await message.edit(message_one)
-
-    temp_upstream_remote.fetch(active_branch_name)
-    repo.git.reset("--hard", "FETCH_HEAD")
-
-    if Config.HEROKU_API_KEY is not None:
-        import heroku3
-        heroku = heroku3.from_key(Config.HEROKU_API_KEY)
-        heroku_applications = heroku.apps()
-        if len(heroku_applications) >= 1:
-            if Config.HEROKU_APP_NAME is not None:
-                heroku_app = None
-                for i in heroku_applications:
-                    if i.name == Config.HEROKU_APP_NAME:
-                        heroku_app = i
-                if heroku_app is None:
-                    await message.edit("Invalid APP Name. Please set the name of your bot in heroku in the var HEROKU_APP_NAME.")
-                    return
-                heroku_git_url = heroku_app.git_url.replace(
-                    "https://",
-                    "https://api:" + Config.HEROKU_API_KEY + "@"
-                )
-                if "heroku" in repo.remotes:
-                    remote = repo.remote("heroku")
-                    remote.set_url(heroku_git_url)
-                else:
-                    remote = repo.create_remote("heroku", heroku_git_url)
-                asyncio.get_event_loop().create_task(deploy_start(tgbot, message, HEROKU_GIT_REF_SPEC, remote))
-
+        repo = git.Repo(basedir)
+        fetched_items = repo.remotes.origin.fetch()
+    except git.exc.NoSuchPathError as path:
+        await event.answer(f"`Couldn't find {path}!`")
+        repo.__del__()
+        return
+    except git.exc.GitCommandError as command:
+        await event.answer(
+            f"`An error occured trying to get the Git Repo.`\n`{command}`")
+        repo.__del__()
+        return
+    except git.exc.InvalidGitRepositoryError:
+        repo = git.Repo.init(basedir)
+        origin = repo.create_remote('origin', main_repo)
+        if not origin.exists():
+            await event.answer(
+                "`The main repository does not exist. Remote is invalid!`")
+            repo.__del__()
+            return
+        fetched_items = origin.fetch()
+        repo.create_head('master', origin.refs.master).set_tracking_branch(
+            origin.refs.master).checkout()
+    fetched_commits = repo.iter_commits(f"HEAD..{fetched_items[0].ref.name}")
+    untracked_files = repo.untracked_files
+    old_commit = repo.head.commit
+    for diff_added in old_commit.diff('FETCH_HEAD').iter_change_type('M'):
+        if "requirements.txt" in diff_added.b_path:
+            await event.answer("`Updating the pip requirements!`")
+            updated = await botupdate_requirements()
+            if updated == 0:
+                await event.answer("`Successfully updated the requirements.`")
             else:
-                await message.edit("Please create the var HEROKU_APP_NAME as the key and the name of your bot in heroku as your value.")
+                if isinstance(updated, int):
+                    await event.answer(
+                        "`Failed trying to install requirements."
+                        " Install them manually and run the command again.`")
+                else:
+                    await event.answer(f'```{updated}```')
                 return
+            break
+
+    if arg == "add":
+        repo.index.add(untracked_files, force=True)
+        repo.index.commit("[BotHub] Updater: Untracked files")
+    elif arg == "reset":
+        repo.head.reset('--hard')
+
+    try:
+        repo.remotes.origin.pull()
+    except git.exc.GitCommandError as command:
+        text = ("`An error occured trying to Git pull:`\n`{0}`\n\n"
+                "`You may use` **{1}update reset** `or` **{1}update add** "
+                "`to reset your repo or add and commit your changes as well.`")
+        prefix = client.prefix if client.prefix is not None else '.'
+        await event.answer(text.format(command, prefix))
+        repo.__del__()
+        return
+
+    new_commit = repo.head.commit
+    if old_commit == new_commit:
+        await event.answer("`Already up-to-date!`")
+        repo.__del__()
+        return
+
+    remote_url = repo.remote().url.replace(".git", '/')
+    if remote_url[-1] != '/':
+        remote_url = remote_url + '/'
+
+    now = datetime.datetime.now(datetime.timezone.utc)
+    def_changelog = changelog = "**BotHub changelog:**"
+    for commit in fetched_commits:
+        changelog += summary.format(rev=repo.git.rev_parse(commit.hexsha,
+                                                           short=7),
+                                    summary=commit.summary,
+                                    url=remote_url,
+                                    sha=commit.hexsha)
+        ago = (now - commit.committed_datetime).total_seconds()
+        elspased = (await _humanfriendly_seconds(ago)).split(',')[0]
+        committers_link = author_link.format(author=commit.committer,
+                                             url=remote_url)
+        authors_link = author_link.format(author=commit.author, url=remote_url)
+        if commit.author == commit.committer:
+            committed = commited.format(committer=committers_link,
+                                        elapsed=elspased)
         else:
-            await message.edit(NO_HEROKU_APP_CFGD)
+            committed = authored.format(author=authors_link,
+                                        committer=committers_link,
+                                        elapsed=elspased)
+        changelog += f"{committed:>{len(committed) + 8}}"
+    if changelog == def_changelog:
+        changelog = "`No changelog for you! IDK what happened.`"
+
+    toast = await event.answer(
+        "`Successfully pulled the new commits. Updating the bot!`",
+        log=("botupdate", changelog.strip()))
+    if not client.logger:
+        await event.answer(changelog.strip(),
+                           reply_to=toast.id,
+                           link_preview=False)
+
+    os.environ['stdborg_botupdate'] = "True"
+    heroku_api_key = client.config['api_keys'].get('api_key_heroku', False)
+    if os.getenv("DYNO", False) and heroku_api_key:
+        heroku_conn = heroku3.from_key(heroku_api_key)
+        app = None
+        for heroku_app in heroku_conn.apps():
+            if "api_key_heroku" in heroku_app.config():
+                app = heroku_app
+                break
+        if app is None:
+            await event.answer(
+                "`You seem to be running on Heroku "
+                "with an invalid environment. Couldn't update the app.`\n"
+                "`The changes will be reverted upon dyno restart.`")
+            await asyncio.sleep(2)
+            repo.__del__()
+            await restart(event)
+        else:
+            for build in app.builds():
+                if build.status == "pending":
+                    await event.answer(
+                        "`There seems to be an ongoing build in your app.`"
+                        " `Try again after it's finished.`")
+                    return
+            # Don't update the telethon environment varaibles
+            stdborg_config = client.config['stdborg']
+            app.config().botupdate(dict(stdborg_config))
+            app.config().botupdate({
+                "stdborg_restarted": f"{event.chat_id}/{event.message.id}",
+                "stdborg_botupdate": "True"
+            })
+            if event.client.disabled_commands:
+                disabled_list = ", ".join(client.disabled_commands.keys())
+                app.config().botupdate(
+                    {"stdborg_disabled_commands": disabled_list})
+
+            url = f"https://api:{heroku_api_key}@git.heroku.com/{app.name}.git"
+            if "heroku" in repo.remotes:
+                repo.remotes['heroku'].set_url(url)
+            else:
+                repo.create_remote('heroku', url)
+            if repo.untracked_files:
+                repo.index.add(untracked_files, force=True)
+                repo.index.commit("[BotHub] Updater: Untracked files")
+            app.enable_feature('runtime-dyno-metadata')
+            await event.answer(
+                "`Pushing all the changes to Heroku. Might take a while.`")
+            remote = repo.remotes['heroku']
+            try:
+                remote.push(refspec=f'{repo.active_branch.name}:master',
+                            force=True)
+                await event.answer("`There was nothing to push to Heroku?`")
+            except git.exc.GitCommandError as command:
+                await event.answer(
+                    "`An error occured trying to pull and push to Heorku`"
+                    f"\n`{command}`")
+                LOGGER.exception(command)
+            repo.__del__()
     else:
-        await message.edit("No heroku api key found in HEROKU_API_KEY var")
-        
+        repo.__del__()
+        await restart(event)
 
-def generate_change_log(git_repo, diff_marker):
-    out_put_str = ""
-    d_form = "%d/%m/%y"
-    for repo_change in git_repo.iter_commits(diff_marker):
-        out_put_str += f"•[{repo_change.committed_datetime.strftime(d_form)}]: {repo_change.summary} <{repo_change.author}>\n"
-    return out_put_str
 
-async def deploy_start(tgbot, message, refspec, remote):
-    await message.edit(RESTARTING_APP)
-    await message.edit("restarted! do `.ping` to check if I am pinging?")
-    await remote.push(refspec=refspec)
-    await tgbot.disconnect()
-    os.execl(sys.executable, sys.executable, *sys.argv)
-
-    
+async def botupdate_requirements():
+    reqs = ' '.join(
+        [sys.executable, "-m", "pip", "install", "-r", 'requirements.txt'])
+    try:
+        process = await asyncio.create_subprocess_shell(
+            reqs,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE)
+        await process.communicate()
+        return process.returncode
+    except Exception as e:
+        LOGGER.exception(e)
+        return await client.get_traceback(e)

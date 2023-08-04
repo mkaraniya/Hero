@@ -20,7 +20,7 @@ from telethon.tl import functions, types
 from telethon.events import StopPropagation
 from telethon.tl.functions.account import UpdateProfileRequest
 from uniborg.util import progress, is_read, humanbytes, time_formatter, admin_cmd
-from sample_config import Config
+from config import Config
 from platform import python_version, uname
 
 # ================= CONSTANT =================

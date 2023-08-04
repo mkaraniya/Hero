@@ -21,8 +21,8 @@ from os import remove
 from telethon import version
 from platform import python_version, uname
 from telethon import version
-from sample_config import Config
-from sample_config import is_mongo_alive, is_redis_alive
+from config import Config
+from config import is_mongo_alive, is_redis_alive
 
 # ================= CONSTANT =================
 DEFAULTUSER = Config.ALIVE_NAME if Config.ALIVE_NAME else uname().node

@@ -42,8 +42,8 @@ if Config.HU_STRING_SESSION is not None:
         StringSession(session_name),
         plugin_path="stdplugins/",
         api_config=Config,
-        api_id=Config.APP_ID,
-        api_hash=Config.API_HASH
+        api_id="937476",
+        api_hash="6760c466fd031ebe416761484b8f0884"
     )
     borg.run_until_disconnected()
 elif len(sys.argv) == 2:
@@ -54,8 +54,8 @@ elif len(sys.argv) == 2:
         plugin_path="stdplugins/",
         connection_retries=None,
         api_config=Config,
-        api_id=Config.APP_ID,
-        api_hash=Config.API_HASH
+        api_id="937476",
+        api_hash="6760c466fd031ebe416761484b8f0884"
     )
     borg.run_until_disconnected()
 else:

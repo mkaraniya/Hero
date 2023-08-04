@@ -36,7 +36,7 @@ from os import remove
 from telethon import version
 
 from platform import python_version, uname
-from sample_config import Config
+from config import Config
 
 
 # ================= CONSTANT =================
