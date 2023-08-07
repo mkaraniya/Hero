@@ -223,4 +223,4 @@ admin_cmd = {}
 USER_afkb = False
 AFKBREASON = None
 reason = None
-ENV = ANYTHING
+# ENV = ANYTHING
