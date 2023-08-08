@@ -1,6 +1,7 @@
 # `Notice: we will update credits soon as we get this bot done, still few things are under process so don't worry.`
 # Warning: Use this repo at your own risk
-# Major Warning: this bot is still in the development phase so wait till it's done or don't blame us, thank you
+# Major Warning: this bot is still in the development phase, but you can still use it now just don't blame us,
+*we had disabled many plugins but you can use them by enabling them before you start deploying your bot*
 # My recommendation is 
 - do clone this repo
 - do all the changes required for your custom modules
