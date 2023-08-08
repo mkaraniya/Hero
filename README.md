@@ -13,9 +13,9 @@
 - *Please go-to my.telegram.org - Login using your Telegram account - Click on API Development Tools.*
 - instead of *LINE NO 26 & 27* use your own repo `sudo git clone https://github.com/your_user_name/your_repo & cd your_repo` that will help a lot.
 
-# installing BotHub with ubuntu terminal or with [!UserLand_Application](https://userland.tech/) on your Android
+# installing BotHub with ubuntu terminal or with [UserLand_Application](https://userland.tech/) on your Android
 *it is very easy edit line no. 26 and 27 commit changes copy this commands and paste them in terminal*
-do you have any quiry ask in the [!TG_Group](https://t.me/Bot_Hub_Official_Group), Thank you.
+do you have any quiry ask in the [TG_Group](https://t.me/Bot_Hub_Official_Group), Thank you.
 
 
 - sudo apt install libleveldb-dev
