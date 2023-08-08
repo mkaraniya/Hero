@@ -11,9 +11,12 @@
 - after final command follow instructions as it will ask for phone number in international format
 - it will ask for APP_ID and API_HASH (you can get it from my.telegram.org, better option is to google it.)
 - *Please go-to my.telegram.org - Login using your Telegram account - Click on API Development Tools.*
-- instead of *LINE NO 20 & 21* use your own repo `sudo git clone https://github.com/your_user_name/your_repo & cd your_repo` that will help a lot.
+- instead of *LINE NO 26 & 27* use your own repo `sudo git clone https://github.com/your_user_name/your_repo & cd your_repo` that will help a lot.
 
 # installing BotHub with ubuntu terminal or with [!UserLand_Application](https://userland.tech/) on your Android
+*it is very easy edit line no. 26 and 27 commit changes copy this commands and paste them in terminal*
+do you have any quiry ask in the TG_Group, Thank you.
+
 
 - sudo apt install libleveldb-dev
 - sudo apt-get update
