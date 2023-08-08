@@ -1,4 +1,4 @@
-# Creadits goes to below entities:
+# Credits go to the below entities:
 
 i    - UserBot Creator and Team [Uniborg]
 ii   - Plugins Creators and Updaters [Uniborg]
@@ -7,7 +7,7 @@ iv   - Plugins Creators and Updaters [PPE]
 v    - UserBot Creator and Team [Pyrobud]
 vi   - Plugins Creators and Updaters [Pyrobud]
 vii  - Special Thanks too
-viii - and not forgotting me and my Team and Plugins Creators and Updaters.
+viii - and not forgetting me and my Team and Plugins Creators and Updaters.
 ix   - Please DM me if anyone is missing out here.
 
 *Enjoy your day, the bot is up now try using it.*
