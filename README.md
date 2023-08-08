@@ -2,6 +2,7 @@
 # Warning: Use this repo at your own risk
 # Major Warning: this bot is still in the development phase, but you can still use it now just don't blame us,
 *we had disabled many plugins but you can use them by enabling them before you start deploying your bot*
+
 # My recommendation is 
 - do clone this repo
 - do all the changes required for your custom modules
@@ -12,7 +13,7 @@
 - *Please go-to my.telegram.org - Login using your Telegram account - Click on API Development Tools.*
 - instead of *LINE NO 20 & 21* use your own repo `sudo git clone https://github.com/your_user_name/your_repo & cd your_repo` that will help a lot.
 
-# installing BotHub with ubuntu terminal   
+# installing BotHub with ubuntu terminal or with UserLand Application () 
 
 - sudo apt install libleveldb-dev
 - sudo apt-get update
