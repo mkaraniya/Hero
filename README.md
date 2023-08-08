@@ -15,7 +15,7 @@
 
 # installing BotHub with ubuntu terminal or with [!UserLand_Application](https://userland.tech/) on your Android
 *it is very easy edit line no. 26 and 27 commit changes copy this commands and paste them in terminal*
-do you have any quiry ask in the TG_Group, Thank you.
+do you have any quiry ask in the [!TG_Group](https://t.me/Bot_Hub_Official_Group), Thank you.
 
 
 - sudo apt install libleveldb-dev
