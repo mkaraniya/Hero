@@ -3,56 +3,56 @@
 # Create a new config.py file in same dir and import, then extend this class.
 import os
 from telethon.tl.types import ChatBannedRights
-from pymongo import MongoClient
+# from pymongo import MongoClient
 from redis import StrictRedis
 
 class Config(object):
     LOGGER = True
     # Get this value from my.telegram.org! Please do not steal
-    APP_ID = int(os.environ.get("APP_ID", "579307"))
-    API_HASH = os.environ.get("API_HASH", "05c676a758ecebfc179403a590c87a0a")
+    APP_ID = int(os.environ.get("APP_ID", 6))
+    API_HASH = os.environ.get("API_HASH", "eb06d4abfb49dc3eeb1aeb98ae0f581e")
     # Photo Chat - Get this value from http://antiddos.systems
     API_TOKEN = os.environ.get("API_TOKEN", "15e05de0-0357-4553-b39c-d614443ed91e")
     # Get this value from https://t.me/SitiSchu! Please do not steal, group for support https://t.me/SpamWatchSupport
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", "hAlogsz5yVFw4TYjIf6I993YFpZj~AT_5wCNrwnY3YeekgeEH1g62hO1hog02UHO")
     # Genius lyrics get this value from https://genius.com/developers both has same values
-    GENIUS_API_TOKEN = os.environ.get("GENIUS", "llQORS8HMBfIsP6S2DsRbgm6qfFqXEycVVH_otPidhEtWdKEQQv2J6g-LdM9ZSPo")
+    GENIUS_API_TOKEN = os.environ.get("GENIUS", None)
     # Genius lyrics get this value from https://genius.com/developers both has same values
-    GENIUS = os.environ.get("GENIUS_API_TOKEN", "llQORS8HMBfIsP6S2DsRbgm6qfFqXEycVVH_otPidhEtWdKEQQv2J6g-LdM9ZSPo")
+    GENIUS = os.environ.get("GENIUS_API_TOKEN", None)
     # Default alive name for .on cmd
-    ALIVE_NAME = os.environ.get("ALIVE_NAME", "Mayur_Karaniya Alias `@𝓣𝓱𝓻𝓮𝓮_𝓒𝓾𝓫𝓮_𝓣𝓮𝓚𝓷𝓸𝔀𝓪𝔂𝓼`")
+    ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
     # Userbot logging feature switch.
-    BOTLOG = bool(os.environ.get("BOTLOG", "True"))
+    BOTLOG = bool(os.environ.get("BOTLOG", "False"))
     # PhotoChat - don't change this value from http://antiddos.systems
     API_URL = os.environ.get("API_URL", "http://antiddos.systems")
     # string session for running on Heroku
     # some people upload their session files on GitHub or other third party hosting
     # websites, this might prevent the un-authorized use of the
     # confidential session files
-    HU_STRING_SESSION = os.environ.get("HU_STRING_SESSION", "1BVtsOJUBu1envraljR5PerFTxXfY19ytQyH4p-xF2vMA3PFcWcR3_UmqIUfmAS7Ie3i39s6x2ycEt-XmCS4eAn23l_lDBv8I1UT_p1SUhndFPHIMjaP13BkzUDZrcH5CVXrPmIQxSaUlciPu1IhKms9bZ5LjDGN7cjD4AZdlDRe1M8Cz-8VPTmbGIMnMgcVoIZNUMMTXAPeNgq9ZLJ0Wht4S0yWTUnEMmP7BdW4iDj89od_22QWSU2QYEmGrPcBt1DX1wwWOfhznmufr0BIRT6k7sgvxL6h3aAut6Cw9OfwNaLlqn5G_t1tywUQbeuLvTpjpjv9vtR4f0E8E__yRuokSwOQ5RKU=")
+    HU_STRING_SESSION = os.environ.get("HU_STRING_SESSION", None)
     # Get your own APPID from https://api.openweathermap.org/data/2.5/weather
-    OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", "19b95feb768a07e86666fb6b37b77ed0")
+    OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
     # Your City
-    WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", "Jamnagar")
+    WEATHER_DEFCITY = os.environ.get("WEATHER_DEFCITY", None)
     # Get your own ACCESS_KEY from http://api.screenshotlayer.com/api/capture
-    SCREEN_SHOT_LAYER_ACCESS_KEY = os.environ.get("SCREEN_SHOT_LAYER_ACCESS_KEY", "21b475698c785715da734c511abc9abc")
+    SCREEN_SHOT_LAYER_ACCESS_KEY = os.environ.get("SCREEN_SHOT_LAYER_ACCESS_KEY", None)
     # Send .get_id in any group to fill this value.
-    PRIVATE_GROUP_BOT_API_ID = int(os.environ.get("PRIVATE_GROUP_BOT_API_ID", -1001253327432))
+    PRIVATE_GROUP_BOT_API_ID = int(os.environ.get("PRIVATE_GROUP_BOT_API_ID", -100123456789))
     # Send .get_id in any channel to fill this value. ReQuired for @Manuel15 inspiration to work!
-    PRIVATE_CHANNEL_BOT_API_ID = int(os.environ.get("PRIVATE_CHANNEL_BOT_API_ID", -1001396438476))
+    PRIVATE_CHANNEL_BOT_API_ID = int(os.environ.get("PRIVATE_CHANNEL_BOT_API_ID", -100123456789))
     # This is required for the plugins involving the file system.
     TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
     # This is required for the speech to text module. Get your USERNAME from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html
-    IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", "mkaraniya@gmail.com")
-    IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", "Mayur.123")
+    IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
+    IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     # This is required for the hash to torrent file functionality to work.
     HASH_TO_TORRENT_API = os.environ.get("HASH_TO_TORRENT_API", "https://example.com/torrent/{}");
     # This is required for the @telegraph functionality.
-    TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "MAYURTHEKING")
+    TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "UniBorg")
     # Get a Free API Key from OCR.Space
-    OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", "121812a51e88957")
+    OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
     # Send .get_id in any group with all your administration bots (added)
-    G_BAN_LOGGER_GROUP = int(os.environ.get("G_BAN_LOGGER_GROUP", -1001253327432))
+    G_BAN_LOGGER_GROUP = int(os.environ.get("G_BAN_LOGGER_GROUP", -100123456789))
     # TG API limit. An album can have atmost 10 media!
     TG_GLOBAL_ALBUM_LIMIT = int(os.environ.get("TG_GLOBAL_ALBUM_LIMIT", 9))
     # Telegram BOT Token from @BotFather
@@ -90,28 +90,28 @@ class Config(object):
     ]
     # Get your own API key from https://www.remove.bg/ or
     # feel free to use http://telegram.dog/Remove_BGBot
-    REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", "6hRH1amMhzGATad8WqxUeyo7")
+    REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
     # you can set any name here
     SLAP_USERNAME = os.environ.get("SLAP_USERNAME", None)
     # Get this from Github
-    # GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
-    # GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
+    GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
+    GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
     # Set to True if you want to block users that are spamming your PMs.
-    NO_P_M_SPAM = bool(os.environ.get("NO_P_M_SPAM", True))
+    NO_P_M_SPAM = bool(os.environ.get("NO_P_M_SPAM", False))
     # define "spam" in PMs
     MAX_FLOOD_IN_P_M_s = int(os.environ.get("MAX_FLOOD_IN_P_M_s", 3))
     # set to True if you want to log PMs to your PM_LOGGR_BOT_API_ID
-    NC_LOG_P_M_S = bool(os.environ.get("NC_LOG_P_M_S", True))
+    NC_LOG_P_M_S = bool(os.environ.get("NC_LOG_P_M_S", False))
     # send .get_id in any channel to forward all your NEW PMs to this group
-    PM_LOGGR_BOT_API_ID = int(os.environ.get("PM_LOGGR_BOT_API_ID", "-1001253327432"))
+    PM_LOGGR_BOT_API_ID = int(os.environ.get("PM_LOGGR_BOT_API_ID", "-100"))
     # For Databases
     # can be None in which case plugins requiring
     # DataBase would not work
-    DB_URI = os.environ.get("DATABASE_URL", "postgres://dnifgaddqwdfff:ad175ea17e9898b911e85a83858d5f9c9c94e0d9d50d75840490544f3f2aaee8@ec2-54-243-243-135.compute-1.amazonaws.com:5432/dfrcu37hlejbe2")
+    DB_URI = os.environ.get("DATABASE_URL", None)
     # For Databases
     # can be None in which case plugins requiring
     # DataBase would not work
-    MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://BotHub:rock.123@bothub-a6lav.mongodb.net/test?retryWrites=true&w=majority")
+   # MONGO_URI = os.environ.get("MONGO_URI", None)
     # number of rows of buttons to be displayed in .helpme command
     NO_OF_BUTTONS_DISPLAYED_IN_H_ME_CMD = int(os.environ.get("NO_OF_BUTTONS_DISPLAYED_IN_H_ME_CMD", 5))
     # specify command handler that should be used for the plugins
@@ -120,25 +120,25 @@ class Config(object):
     # specify list of users allowed to use bot
     # WARNING: be careful who you grant access to your bot.
     # malicious users could do ".exec rm -rf /*"
-    SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "138312364 236390091 334255172 755569473 270418630").split())
+    SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
     # VeryStream only supports video formats
-    VERY_STREAM_LOGIN = os.environ.get("VERY_STREAM_LOGIN", "mkaraniya@gmail.com")
-    VERY_STREAM_KEY = os.environ.get("VERY_STREAM_KEY", "cSGpiDGbrpF")
+    VERY_STREAM_LOGIN = os.environ.get("VERY_STREAM_LOGIN", None)
+    VERY_STREAM_KEY = os.environ.get("VERY_STREAM_KEY", None)
     # for temporary saving files on UserBot
-    TEMP_DIR = os.environ.get("TEMP_DIR", "Env")
+    TEMP_DIR = os.environ.get("TEMP_DIR", None)
     # This is required for few things
-    CHANNEL_ID = os.environ.get("CHANNEL_ID", -1001396438476)
+    CHANNEL_ID = os.environ.get("CHANNEL_ID", None)
     # Google Drive ()
-    G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", "835104230565-i3nd3042drp8b76phdundkkro29mnd7b.apps.googleusercontent.com")
-    G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", "ZrRAN52fqFz4Zr_LqllA46Mm")
-    GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "17ZSqwGTjhW5Rr14MY3dOS84cpR4vSZtT")
+    G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
+    G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
+    GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
     AUTH_TOKEN_DATA = os.environ.get("AUTH_TOKEN_DATA", None)
     os.makedirs(TMP_DOWNLOAD_DIRECTORY, exist_ok=True)
     t_file = open(TMP_DOWNLOAD_DIRECTORY+"auth_token.txt","w")
-    t_file.write("579307")
+    t_file.write(AUTH_TOKEN_DATA)
     t_file.close()
     #
-    TELE_GRAM_2FA_CODE = os.environ.get("TELE_GRAM_2FA_CODE", "mayur.123")
+    TELE_GRAM_2FA_CODE = os.environ.get("TELE_GRAM_2FA_CODE", None)
     #
     GROUP_REG_SED_EX_BOT_S = os.environ.get("GROUP_REG_SED_EX_BOT_S", r"(regex|moku|BananaButler_|rgx|l4mR)bot")
     # rapidleech plugins
@@ -147,56 +147,56 @@ class Config(object):
     OPEN_LOAD_KEY = os.environ.get("OPEN_LOAD_KEY", "100")
     # Google Chrome Selenium Stuff
     # taken from https://github.com/jaskaranSM/UniBorg/blob/9072e3580cc6c98d46f30e41edbe73ffc9d850d3/sample_config.py#L104-L106
-    GOOGLE_CHROME_DRIVER = os.environ.get("GOOGLE_CHROME_DRIVER", "/app/.chromedriver/bin/chromedriver")
-    GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", "/app/.apt/usr/bin/chromium-browser")
+    GOOGLE_CHROME_DRIVER = os.environ.get("GOOGLE_CHROME_DRIVER", None)
+    GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
     # Chrome Driver and Headless Google Chrome Binaries
-    CARBON_DRIVER = os.environ.get("CARBON_DRIVER", "/usr/bin/chromedriver")
-    CARBON_BIN = os.environ.get("CARBON_BIN", "/usr/bin/chromium-browser")
+    CARBON_DRIVER = os.environ.get("CARBON_DRIVER", None)
+    CARBON_BIN = os.environ.get("CARBON_BIN", None)
     # get your value from https://Intellivoid.info
-    LYDIA_API = os.environ.get("LYDIA_API", "b65cad19a3612139fb1ac04cd09c71256bb6859352a84d9f7d92e376fba0f505a53b3165b6be16fe06d9cdd4e366e62495efdc70361681c9f797ba65ba084753")
+    LYDIA_API = os.environ.get("LYDIA_API", None)
     LYDIA_ANTI_PM = bool(os.environ.get("LYDIA_ANTI_PM", "True"))
     # get your value from YouTube or Google.
-    YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", "AIzaSyAQbZDekzmLO98Vsl6DVCpWK_2zVu5ns88")
+    YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
     # Heroku API_Key is found under "dashboard.heroku.com/account"
-    # HEROKU_MEMEZ = bool(os.environ.get("HEROKU_MEMEZ", "False"))
-   # HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
-    # HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
+    HEROKU_MEMEZ = bool(os.environ.get("HEROKU_MEMEZ", "False"))
+    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     # required for Carbor
-    CHROME_DRIVER = os.environ.get("CHROME_DRIVER", "/app/.chromedriver/bin/chromedriver")
-    CHROME_BIN = os.environ.get("CHROME_BIN", "/app/.apt/usr/bin/google-chrome")
+    CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
+    CHROME_BIN = os.environ.get("CHROME_BIN", None)
     # define "repo_link" in conig_vars
-    REPO_LINK = os.environ.get("REPO_LINK", "https://github.com/mkaraniya/Hero.git")
+    REPO_LINK = os.environ.get("REPO_LINK", "https://github.com/mkaraniya/BotHub.git")
     # define "UPSTREAM_REPO_URL" in conig_vars
-    UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL", "https://github.com/mkaraniya/Hero.git")
+    UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL", "https://github.com/mkaraniya/BotHub.git")
     # define "HEROKU_GIT_URL" | https://git.heroku.com/YOUR_HEROKU_APP_NAME.git
-#    HEROKU_GIT_URL = os.environ.get("HEROKU_GIT_URL", "YOUR HEROKU GIT URL")
+    HEROKU_GIT_URL = os.environ.get("HEROKU_GIT_URL", "YOUR HEROKU GIT URL")
     # define "heroku_link" in conig_vars 
- #   HEROKU_LINK = os.environ.get("HEROKU_LINK", "YOUR HEROKU GIT URL")
+    HEROKU_LINK = os.environ.get("HEROKU_LINK", "YOUR HEROKU GIT URL")
     # define "packs_content" in conig_vars
-    PACKS_CONTENT = os.environ.get("PACKS_CONTENT", "BotHub")
+    PACKS_CONTENT = os.environ.get("PACKS_CONTENT", None)
     #
-    BOT_HUB = os.environ.get("BOT_HUB", "https://telegra.ph/file/3e7b54d5ef234d0b6c170.jpg")
+    BOT_HUB = os.environ.get("BOT_HUB", None)
     #
     # Init Mongo
- #MONGOCLIENT = MongoClient(Config.MONGO_URI, 27017, serverSelectionTimeoutMS=1)
- #MONGO = MONGOCLIENT.userbot
+# MONGOCLIENT = MongoClient(Config.MONGO_URI, 27017, serverSelectionTimeoutMS=1)
+# MONGO = MONGOCLIENT.userbot
 
 
- #def is_mongo_alive():
+# def is_mongo_alive():
   #  try:
-   #     MONGOCLIENT.server_info()  
-#    except BaseException:
- #       return False
-    # return True 
+   #     MONGOCLIENT.server_info()
+   # except BaseException:
+    #    return False
+   # return True
 
 
 # Init Redis
 # Redis will be hosted inside the docker container that hosts the bot
 # We need redis for just caching, so we just leave it to non-persistent
-# REDIS = StrictRedis(host='localhost', port=6379, db=0)
+REDIS = StrictRedis(host='localhost', port=6379, db=0)
 
 
-# def is_redis_alive():
+#def is_redis_alive():
  #   try:
   #      REDIS.ping()
    #     return True
@@ -223,4 +223,3 @@ admin_cmd = {}
 USER_afkb = False
 AFKBREASON = None
 reason = None
-# ENV = ANYTHING
