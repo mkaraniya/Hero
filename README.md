@@ -8,7 +8,7 @@
 - run this commands under Ubuntu Linux
 - after final command follow instructions as it will ask for phone number in international format
 - it will ask for APP_ID and API_HASH (you can get it from my.telegram.org, better option is to google it.)
-- instead of *LINE NO 20 & 21* use your own repo `sudo git clone https://github.com/your_user_name/your_repo & cd your_repo` that will be help a lot.
+- instead of *LINE NO 20 & 21* use your own repo `sudo git clone https://github.com/your_user_name/your_repo & cd your_repo` that will help a lot.
 
 # installing BotHub with ubuntu terminal   
 
