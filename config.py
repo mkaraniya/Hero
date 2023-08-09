@@ -135,7 +135,7 @@ class Config(object):
     AUTH_TOKEN_DATA = os.environ.get("AUTH_TOKEN_DATA", None)
     os.makedirs(TMP_DOWNLOAD_DIRECTORY, exist_ok=True)
     t_file = open(TMP_DOWNLOAD_DIRECTORY+"auth_token.txt","w")
-    t_file.write(AUTH_TOKEN_DATA)
+    t_file.write("AUTH_TOKEN_DATA")
     t_file.close()
     #
     TELE_GRAM_2FA_CODE = os.environ.get("TELE_GRAM_2FA_CODE", None)
