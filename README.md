@@ -17,7 +17,14 @@
 *it is very easy edit line no. 26 and 27 commit changes copy this commands and paste them in terminal*
 do you have any quiry ask in the [TG_Group](https://t.me/Bot_Hub_Official_Group), Thank you.
 
+# do git clone
+git clone https://github.com/jangistar/gban
+cd gban
 
+# than run 
+bash hero.sh
+
+# or run every command individually (recommended)(it is more safer)
 - sudo apt install libleveldb-dev
 - sudo apt-get update
 - sudo apt-get upgrade -y
