@@ -18,8 +18,8 @@
 do you have any quiry ask in the [TG_Group](https://t.me/Bot_Hub_Official_Group), Thank you.
 # * or
 # do git clone
-- git clone https://github.com/jangistar/gban
-- cd gban
+- git clone https://github.com/mkaraniya/Hero
+- cd Hero
 # * &
 # than run 
 - bash hero.sh
