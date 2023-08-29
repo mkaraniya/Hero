@@ -18,11 +18,11 @@
 do you have any quiry ask in the [TG_Group](https://t.me/Bot_Hub_Official_Group), Thank you.
 
 # do git clone
-git clone https://github.com/jangistar/gban
-cd gban
+- git clone https://github.com/jangistar/gban
+- cd gban
 
 # than run 
-bash hero.sh
+- bash hero.sh
 
 # or run every command individually (recommended)(it is more safer)
 - sudo apt install libleveldb-dev
